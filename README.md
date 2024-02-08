@@ -1,6 +1,6 @@
 # NewsSphere
 
-NLP Project for Social Informatics Class
+## NLP Project for Social Informatics Class
 
 Members are:-
 
