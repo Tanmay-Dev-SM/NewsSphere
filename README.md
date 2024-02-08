@@ -10,3 +10,12 @@ Members are:-
 4.Dipti
 
 Google Drive Media - https://drive.google.com/drive/folders/1PRSLihUuCbmA3cMOH92SL2e0291QW84W 
+
+Coding Protocols
+
+Naming Convention
+
+Main
+Release - every sprint
+Dev - weekly
+Feature -  documentation with all developers
