@@ -30,6 +30,6 @@ Link:-
   GitHub​:
   - Main branch: final branch once project is done and everything is working (no buggy codes, back-up container)​
   - Feature branch: combine code for feature release​
-  - Dev branch: release branch for working and weekly reviews​
+  - Development branch: release branch for working and weekly reviews​
   - Feature branches: individual writing code, documentation​
   - Documentation for every function: if you write a function, comment on the parameters, what the function is doing​ Give and example/provide specifics – this will work in specific cases, will not work in specific cases​
