@@ -8,7 +8,7 @@ Members are:-
 - 3.Vamsi
 - 4.Dipti
 
-Link:-
+Links:-
 
 - [[Google Drive Media]](https://drive.google.com/drive/folders/1PRSLihUuCbmA3cMOH92SL2e0291QW84W)
 - [[Figma Link]](https://www.figma.com/file/QfgWvBuy9XduF5Ev8yD7vw/Untitled?type=design&node-id=6%3A9&mode=design&t=2QBILcNxXyLilUdZ-1)
@@ -24,8 +24,8 @@ Link:-
 3. Coding Protocols
   Naming Convention: 
   - Funciton : camelCase
-  - variable name : use underscore instead of space
-  - interations : use a meaningful and complete word instead of shortcuts
+  - Variable name : use underscore instead of space
+  - Interations : use a meaningful and complete word instead of shortcuts
   
   GitHub​:
   - Main branch: final branch once project is done and everything is working (no buggy codes, back-up container)​
