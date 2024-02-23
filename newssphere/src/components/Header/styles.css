@@ -1,0 +1,14 @@
+.main {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+.gridContainer {
+  align-items: center;
+  flex-wrap: nowrap !important;
+}
+.logoContainer {
+  display: flex;
+  justify-content: center;
+}

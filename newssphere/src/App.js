@@ -1,14 +1,12 @@
-import "./App.css"
-import HomePage from "./HomePage"
-import Navbar from "./Navbar"
+// import "./App.css";
+// import HomePage from "./routes/HomePage";
 
-function App() {
-  return (
-    <div className="App">
-      <Navbar />
-      <HomePage />
-    </div>
-  )
-}
+// function App() {
+//   return (
+//     <div className="App">
+//       <HomePage />
+//     </div>
+//   );
+// }
 
-export default App
+// export default App;
