@@ -1,61 +1,26 @@
-import * as React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { styled, alpha } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import { TextField, Grid } from "@mui/material";
-
-import InputBase from "@mui/material/InputBase";
-
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import { SettingsOutlined } from "@mui/icons-material";
-
-import MoreIcon from "@mui/icons-material/MoreVert";
+import {
+  TextField,
+  Grid,
+  IconButton,
+  Toolbar,
+  Box,
+  AppBar,
+  InputBase,
+} from "@mui/material";
+import {
+  KeyboardArrowDown,
+  ArrowDropDown,
+  SettingsOutlined,
+  AccountCircle,
+  MoreVert as MoreIcon,
+  Search as SearchIcon,
+} from "@mui/icons-material";
 import "./styles.css";
+
 import { LogoPNG } from "src/constants/customIcons";
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    backgroundColor: "#F1F3F4",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
+import SearchOptions from "./SearchOptions";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   width: "100%",
@@ -95,84 +60,125 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: "#FFF",
   flexWrap: "nowrap",
 }));
-
+const defaultSearchOptions = {
+  exact_phrase: "",
+  has_words: "",
+  exclude_words: "",
+  website: "",
+  date: 0,
+};
 export default function Header() {
   const menuId = "primary-search-account-menu";
-
   const mobileMenuId = "primary-search-account-menu-mobile";
 
+  const [searchOptions, setSearchOptions] = React.useState({
+    ...defaultSearchOptions,
+  });
+  const [anchorElForPopper, setAchorElForPopper] = useState(false);
+
+  function handlePopperToggle(event) {
+    setAchorElForPopper(!anchorElForPopper);
+  }
+  function clearSearchOptions() {
+    setSearchOptions({ ...defaultSearchOptions });
+  }
   return (
     <Box className="main">
-      <StyledAppBar position="static">
+      <StyledAppBar>
         <Grid container className="gridContainer">
-          {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton> */}
-          <Grid item md={1} sm={2} className="logoContainer">
+          <Grid item md={1} sm={2}>
             <LogoPNG />
           </Grid>
-          {/* <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search> */}
-          <Grid item md={3} sm={3} />
-          <Grid item md={7} sm={7}>
-            <StyledTextField
-              // label="Search"
-              placeholder="Search for topics,location and sources"
-              variant="outlined"
-              InputLabelProps={{ shrink: true }}
-              InputProps={{
-                startAdornment: <SearchIcon />,
-              }}
-            />
+          <Grid
+            md={5}
+            sm={5}
+            item
+            style={{ alignItems: "center", display: "flex" }}
+          >
+            <Grid item md={11} sm={10} position="relative">
+              <SearchOptions
+                open={anchorElForPopper}
+                onClose={handlePopperToggle}
+                searchOptions={searchOptions}
+                setSearchOptions={setSearchOptions}
+                clearSearchOptions={clearSearchOptions}
+              />
+              <StyledTextField
+                // label="Search"
+                placeholder="Search for topics,location and sources"
+                variant="outlined"
+                InputLabelProps={{ shrink: true }}
+                InputProps={{
+                  startAdornment: <SearchIcon fontSize="small" />,
+                  endAdornment: (
+                    <IconButton
+                      sx={{
+                        p: "0",
+                        transform: anchorElForPopper ? "rotate(180deg)" : "",
+                        transition: "ease 0.5s",
+                      }}
+                      disableFocusRipple={true}
+                      disableTouchRipple={true}
+                      disableRipple={true}
+                      onClick={handlePopperToggle}
+                    >
+                      <ArrowDropDown fontSize="small" />
+                    </IconButton>
+                  ),
+                }}
+              />
+            </Grid>
+            <Grid item md={1} sm={2}>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                //onClick={handleSettingsMenuOpen}
+                // color="inherit"
+              >
+                <SettingsOutlined />
+              </IconButton>
+            </Grid>
           </Grid>
-          <Grid item md={1} sm={1}>
+          <Grid
+            item
+            md={1}
+            sm={1}
+            sx={{
+              display: { xs: "none", md: "flex" },
+            }}
+            className="menuOptions"
+          >
             <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              //onClick={handleSettingsMenuOpen}
-              // color="inherit"
-            >
-              <SettingsOutlined />
-            </IconButton>
-          </Grid>
-          <Grid container sx={{ flexGrow: 1 }} />
-          <Grid item md={1} sm={1} sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
+              className="optionsIcon"
               size="large"
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
               //onClick={handleProfileMenuOpen}
-              // color="inherit"
             >
               <AccountCircle />
             </IconButton>
           </Grid>
-          <Grid item md={1} sm={1} sx={{ display: { xs: "flex", md: "none" } }}>
+          <Grid
+            item
+            md={1}
+            sm={1}
+            sx={{
+              display: { xs: "flex", md: "none" },
+            }}
+            className="menuOptions"
+          >
             <IconButton
+              className="optionsIcon"
               size="large"
               aria-label="show more"
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               //onClick={handleMobileMenuOpen}
-              // color="inherit"
             >
               <MoreIcon />
             </IconButton>

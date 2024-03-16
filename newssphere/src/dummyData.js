@@ -46,7 +46,7 @@ let data = [
     date: "11/14/2023, 03:00 PM, +0100 CET",
   },
   {
-    position: 1,
+    position: 4,
     title:
       "Parachute Pizza Opens With Sicilian-Style Squares and Oysters in Union Market",
     snippet:
@@ -62,7 +62,7 @@ let data = [
     date: "11/13/2023, 05:43 PM, +0100 CET",
   },
   {
-    position: 2,
+    position: 5,
     title: "Brewer's Pizza, home of Pinglehead Brewing Company, closing",
     snippet:
       "A popular Jacksonville-area brewpub plans to close this week after 14 years serving up hand-crafted pizzas and artisan beers on tap.",
@@ -77,7 +77,7 @@ let data = [
     date: "11/13/2023, 04:51 PM, +0100 CET",
   },
   {
-    position: 3,
+    position: 6,
     title:
       "California Pizza Kitchen Invites Guests to Embrace the Holiday Spirit with Decadent New Dishes and a Signature Cocktail",
     snippet:
@@ -92,7 +92,7 @@ let data = [
     date: "11/14/2023, 03:00 PM, +0100 CET",
   },
   {
-    position: 1,
+    position: 7,
     title:
       "Parachute Pizza Opens With Sicilian-Style Squares and Oysters in Union Market",
     snippet:
@@ -108,7 +108,7 @@ let data = [
     date: "11/13/2023, 05:43 PM, +0100 CET",
   },
   {
-    position: 2,
+    position: 8,
     title: "Brewer's Pizza, home of Pinglehead Brewing Company, closing",
     snippet:
       "A popular Jacksonville-area brewpub plans to close this week after 14 years serving up hand-crafted pizzas and artisan beers on tap.",
@@ -123,7 +123,7 @@ let data = [
     date: "11/13/2023, 04:51 PM, +0100 CET",
   },
   {
-    position: 3,
+    position: 9,
     title:
       "California Pizza Kitchen Invites Guests to Embrace the Holiday Spirit with Decadent New Dishes and a Signature Cocktail",
     snippet:
@@ -137,6 +137,6 @@ let data = [
       "https://lh4.googleusercontent.com/proxy/juEVTbFNL_AJu48IxqJ_uumsmvqiXqmgaipRAf1ges1D82jgGp5y-JCKYxQcAKJQntSPm7Ayg7t4MXQpfcJqjJBUz19rrHOROQC5DE_XXZ6Un6twAzzm-VE9WcQk2_W2YwA_zqxdN5yR6bWXogTwFJYackIdbgGOGMfNsk38hAJs6yQiA-6EoOoRKkUVcWXKxV71Uk9EAHV7fq0sC2M0BxDqJ5yE5apgsX-uhA6AnR-G3WHY68nFDknjDWMIAjkbfg4RwJdla7d6X0tXuA",
     date: "11/14/2023, 03:00 PM, +0100 CET",
   },
-]
+];
 
-export default data
+export default data;
