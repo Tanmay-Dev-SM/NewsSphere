@@ -1,12 +1,9 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import Home from "./routes/routes";
-import ErrorPage from "./routes/ErrorPage";
 import router from "src/routes/routes";
-
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

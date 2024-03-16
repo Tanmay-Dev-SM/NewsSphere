@@ -1,0 +1,23 @@
+.basic-popper {
+  min-width: 256px;
+  background-color: #fff;
+  color: #000;
+  border-radius: 6px;
+  max-width: calc(100%-100px);
+  padding: 10px;
+}
+.basic-popper .popper-header {
+  color: #0c3581;
+  font-size: 13px;
+  margin: 5px 0 10px;
+}
+.basic-popper .popper-body {
+  font-size: 12px;
+  margin: 10px 0;
+  height: 90% !important;
+}
+.basic-popper .popper-footer {
+  font-size: 12px;
+  margin: 10px 0;
+  height: 90% !important;
+}
