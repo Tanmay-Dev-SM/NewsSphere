@@ -1,10 +1,11 @@
-import data from "../dummyData";
-import React from "react";
-import { Grid, Card, CardHeader, CardMedia, CardContent } from "@mui/material";
+import data from "../dummyData"
+import React from "react"
+import { Grid, Card, CardHeader, CardMedia, CardContent } from "@mui/material"
 
-import IconButton from "@mui/material/IconButton";
-import "./styles.css";
-import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton"
+import "./styles.css"
+import Typography from "@mui/material/Typography"
+import TabBar from "src/components/TabBar"
 function HomePage() {
   return (
     // <div>
@@ -26,6 +27,7 @@ function HomePage() {
     // </div>
 
     <Grid container className="root">
+      <TabBar />
       {data.map((news, index) => (
         <Grid item flexBasis="25%">
           <Card
@@ -71,7 +73,7 @@ function HomePage() {
         </Grid>
       ))}
     </Grid>
-  );
+  )
 }
 
-export default HomePage;
+export default HomePage
