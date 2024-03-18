@@ -1,0 +1,29 @@
+.root {
+  margin-top: 64px; /* Adjust the value based on your desired spacing */
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  height: calc(100% - 64px);
+  background: linear-gradient(180deg, #d8e5f2, transparent);
+  
+}
+.homePageCard {
+  height: 180px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.homePageCardContent {
+  height: calc(100% - 32px);
+  box-shadow: inset 0 0 8px 16px #ffffffcc;
+}
+.articleHeader {
+  font-size: larger;
+  font-weight: 600;
+  margin: 0;
+}
+.articleContent {
+  font-size: smaller;
+}

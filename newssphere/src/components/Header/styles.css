@@ -1,0 +1,53 @@
+.main {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 998;
+}
+.gridContainer {
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+.menuOptions {
+  justify-content: flex-end;
+}
+.optionsIcon {
+  margin: 0 !important;
+}
+.searchOptions {
+  position: absolute;
+  background: #fff;
+  color: #000;
+  margin-top: 32px;
+  padding: 16px;
+  box-shadow: 0 2px 4px 2px rgba(218, 218, 218, 1);
+  width: 100%;
+  flex-direction: column !important;
+  border-radius: 4px 4px 16px 16px;
+  gap: 8px;
+  font-size: 10px;
+}
+.rowContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  flex-grow: 1;
+  align-items: center;
+}
+.columnContainer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  flex-grow: 1;
+}
+.margin {
+  width: 100%;
+  margin: 0 !important;
+}
+.optionsHeader {
+  margin: 0;
+}
