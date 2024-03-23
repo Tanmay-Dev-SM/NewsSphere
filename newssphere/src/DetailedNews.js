@@ -1,14 +1,3 @@
-//import "src/routes/styles.css"
-// function DetailedNews() {
-//   return (
-//     <div className="root">
-//       <h1>"Hello hello"</h1>
-//     </div>
-//   );
-// }
-
-// export default DetailedNews;
-
 import { useLocation } from "react-router-dom"
 import {
   Typography,
@@ -22,7 +11,7 @@ import {
 
 const DetailedNews = () => {
   const location = useLocation()
-  const { news } = location.state // Destructure the news item from state
+  const { news } = location.state 
 
   return (
     <div className="root">
@@ -50,18 +39,6 @@ const DetailedNews = () => {
                 }}
               >
                 {news.description}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                style={{ marginTop: "1rem" }}
-              >
-                <strong>Keywords:</strong> {news.keywords.join(", ")}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                <strong>Published by:</strong> {news.creator.join(", ")} on{" "}
-                {new Date(news.pubDate).toLocaleDateString()}
               </Typography>
               <Button
                 size="small"
