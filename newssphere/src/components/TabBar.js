@@ -13,9 +13,10 @@ import {
   AccountBalance,
   BusinessCenter,
 } from "@mui/icons-material"
+import FlightIcon from "@mui/icons-material/Flight"
 
-const topics = [
-  { label: "Top Stories", Icon: Home, color: "#3478BC" },
+export const topics = [
+  { label: "Top", Icon: Home, color: "#3478BC" },
   { label: "Sports", Icon: SportsSoccer, color: "#AF640D" },
   { label: "Local", Icon: LocationOn, color: "#6B6B6B" },
   { label: "World", Icon: Public, color: "#697E30" },
@@ -24,16 +25,10 @@ const topics = [
   { label: "Entertainment", Icon: Movie, color: "#6E5C96" },
   { label: "Politics", Icon: AccountBalance, color: "#A62D76" },
   { label: "Business", Icon: BusinessCenter, color: "#363E62" },
+  { label: "Tourism", Icon: FlightIcon, color: "#FF4F4B" },
 ]
 
-function TabBar() {
-  const [selectedTab, setSelectedTab] = React.useState(0)
-
-  const handleChange = (event, newValue) => {
-    setSelectedTab(newValue)
-  }
-
-  console.log(selectedTab)
+function TabBar({ selectedTab, handleChange }) {
   return (
     <AppBar
       position="static"
