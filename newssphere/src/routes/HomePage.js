@@ -5,7 +5,7 @@ import { Grid, Card, CardHeader, CardMedia, CardContent } from "@mui/material"
 import IconButton from "@mui/material/IconButton"
 import "./styles.css"
 import Typography from "@mui/material/Typography"
-import TabBar from "src/components/TabBar"
+import TabBar from "src/components/TabBar/TabBar"
 function HomePage() {
   return (
     // <div>
