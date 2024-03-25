@@ -2,15 +2,15 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {};
 export const user = createSlice({
-  name: "todo",
+  name: "user",
   initialState,
   reducers: {
     updateUserStore: (state, action) => {
       const data = {
         id: nanoid(),
-        text: action.payload,
+        ...action.payload,
       };
-      state.todos.push(data);
+      state = { ...data };
     },
     resetUserStore: (state, action) => {
       state.todos = state.todos.filter((todos) => todos.id !== action.payload);

@@ -1,7 +1,8 @@
-import React from "react"
-import AppBar from "@mui/material/AppBar"
-import Tabs from "@mui/material/Tabs"
-import Tab from "@mui/material/Tab"
+import React from "react";
+import AppBar from "@mui/material/AppBar";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { Grid } from "@mui/material";
 import {
   Home,
   SportsSoccer,
@@ -12,8 +13,8 @@ import {
   Movie,
   AccountBalance,
   BusinessCenter,
-} from "@mui/icons-material"
-import FlightIcon from "@mui/icons-material/Flight"
+} from "@mui/icons-material";
+import FlightIcon from "@mui/icons-material/Flight";
 
 export const topics = [
   { label: "Top", Icon: Home, color: "#3478BC" },
@@ -26,10 +27,12 @@ export const topics = [
   { label: "Politics", Icon: AccountBalance, color: "#A62D76" },
   { label: "Business", Icon: BusinessCenter, color: "#363E62" },
   { label: "Tourism", Icon: FlightIcon, color: "#FF4F4B" },
-]
+];
 
 function TabBar({ selectedTab, handleChange }) {
   return (
+    // <Grid container justifyContent="center">
+    //   <Grid item md={9}>
     <AppBar
       position="static"
       style={{
@@ -55,7 +58,7 @@ function TabBar({ selectedTab, handleChange }) {
               alignItems: "center",
               justifyContent: "center",
               textTransform: "none",
-              minHeight: "0",
+              minHeight: "0px",
               padding: "6px 12px",
               width: "auto",
               borderRadius: "20px",
@@ -64,7 +67,9 @@ function TabBar({ selectedTab, handleChange }) {
         ))}
       </Tabs>
     </AppBar>
-  )
+    //   </Grid>
+    // </Grid>
+  );
 }
 
-export default TabBar
+export default TabBar;
