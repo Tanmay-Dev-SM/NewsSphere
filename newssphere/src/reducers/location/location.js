@@ -1,12 +1,11 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
-const initialState = { loc: {} };
+const initialState = {};
 export const location = createSlice({
   name: "location",
   initialState,
   reducers: {
     updateLocationStore: (state, action) => {
-      console.log(state, action.payload);
       return {
         ...state,
         ...action.payload,

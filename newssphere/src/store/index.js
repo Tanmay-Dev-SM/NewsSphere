@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { userReducer, locationReducer } from "src/reducers";
+import { userReducer, locationReducer, searchReducer } from "src/reducers";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
@@ -12,6 +12,7 @@ const persistConfig = {
 const reducer = combineReducers({
   user: userReducer,
   location: locationReducer,
+  search: searchReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
