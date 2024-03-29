@@ -2,13 +2,10 @@ import React from "react";
 import "./styles.css";
 import moment from "moment";
 import { IconButton } from "@mui/material";
+import { Refresh as RefreshIcon } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 
-const refresh = () => {
-  window.location.reload();
-};
-
-const WeatherCard = ({ weatherData }) => {
+const WeatherCard = ({ fetchWeather = () => {} }) => {
   const location = useSelector((state) => state.location);
 
   return (
@@ -21,7 +18,7 @@ const WeatherCard = ({ weatherData }) => {
           color="blue"
           circular
           icon="refresh"
-          onClick={refresh}
+          onClick={fetchWeather}
         />
       </div>
       <div className="flex">

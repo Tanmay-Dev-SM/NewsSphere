@@ -531,9 +531,9 @@ function HomePage() {
                 .map((news, index) => (
                   <Grid
                     item
-                    flexBasis="30%"
+                    flexBasis="calc(33% - 16px)"
                     onClick={handleItemClick(news)}
-                    style={{ margin: "1%" }}
+                    style={{ margin: "8px" }}
                   >
                     <Card
                       key={index}
@@ -564,7 +564,7 @@ function HomePage() {
                 ))}
             </Grid>
             <Grid item md={2}>
-              <WeatherCard />
+              <WeatherCard fetchWeather={fetchWeather} />
             </Grid>
           </Grid>
         </Grid>
