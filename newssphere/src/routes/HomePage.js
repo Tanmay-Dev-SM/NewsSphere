@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Grid, Card, CardContent } from "@mui/material";
+import { Grid, Card, CardContent, CardMedia } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 
 import "./styles.css";
@@ -537,7 +537,10 @@ function HomePage() {
                       className="homePageCard"
                       elevation={0}
                       sx={{
-                        backgroundImage: `linear-gradient(transparent,#D8E5F2), url(${news.image_url})`,
+                        backgroundImage: `linear-gradient(transparent 50%, #333333), url(${news.image_url})`,
+                        // transition: 'transform 0.2s ease-in-out', '&:hover': {transform: 'scale(1.1)'},
+                        // Apply scale transformation on hover
+                        //changed color
                       }}
                       onClick={() => <DetailedNews news={news} />}
                     >

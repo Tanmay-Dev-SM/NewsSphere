@@ -2,7 +2,6 @@ import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Grid } from "@mui/material";
 import {
   Home,
   SportsSoccer,
@@ -31,22 +30,21 @@ export const topics = [
 
 function TabBar({ selectedTab, handleChange }) {
   return (
-    // <Grid container justifyContent="center">
-    //   <Grid item md={9}>
     <AppBar
       position="static"
       style={{
+        display: 'flex',
         backgroundColor: "white",
-
         borderRadius: "20px",
+        width: 'auto',
         minHeight: "0",
-        height: "50px",
+        height: "auto",
       }}
     >
       <Tabs value={selectedTab} onChange={handleChange}>
         {topics.map((topic, index) => (
           <Tab
-            icon={<topic.Icon />}
+            icon={<topic.Icon sx={{ marginRight: '0.3em' }}/>}
             label={topic.label}
             key={index}
             style={{
@@ -67,8 +65,6 @@ function TabBar({ selectedTab, handleChange }) {
         ))}
       </Tabs>
     </AppBar>
-    //   </Grid>
-    // </Grid>
   );
 }
 

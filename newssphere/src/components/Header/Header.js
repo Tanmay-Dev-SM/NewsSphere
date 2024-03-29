@@ -12,7 +12,6 @@ import {
 import {
   KeyboardArrowDown,
   ArrowDropDown,
-  SettingsOutlined,
   AccountCircle,
   MoreVert as MoreIcon,
   Search as SearchIcon,
@@ -21,6 +20,8 @@ import "./styles.css";
 
 import { LogoPNG } from "src/constants/customIcons";
 import SearchOptions from "./SearchOptions";
+import SettingsMenu from "../SettingsMenu/SettingsMenu";
+import TabBar from "../TabBar/TabBar";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   width: "100%",
@@ -60,6 +61,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: "#FFF",
   flexWrap: "nowrap",
 }));
+
 const defaultSearchOptions = {
   exact_phrase: "",
   has_words: "",
@@ -67,6 +69,7 @@ const defaultSearchOptions = {
   website: "",
   date: 0,
 };
+
 export default function Header() {
   const menuId = "primary-search-account-menu";
   const mobileMenuId = "primary-search-account-menu-mobile";
@@ -82,6 +85,8 @@ export default function Header() {
   function clearSearchOptions() {
     setSearchOptions({ ...defaultSearchOptions });
   }
+ 
+
   return (
     <Box className="main">
       <StyledAppBar>
@@ -128,18 +133,8 @@ export default function Header() {
                 }}
               />
             </Grid>
-            <Grid item md={1} sm={2}>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                //onClick={handleSettingsMenuOpen}
-                // color="inherit"
-              >
-                <SettingsOutlined />
-              </IconButton>
+            <Grid item md={1} sm={2}> {/* Settings Menu */}
+              <SettingsMenu aria-controls={menuId} />
             </Grid>
           </Grid>
           <Grid

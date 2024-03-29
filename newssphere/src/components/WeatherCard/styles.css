@@ -6,7 +6,7 @@
 }
 
 .top {
-  background-color: #919191;
+  background-color: #c1dbeb;
   color: #222;
   padding: 12px;
   border-radius: 20px 20px 0 0;
@@ -16,12 +16,13 @@
 }
 
 .header {
-  background-color: #919191;
+  /* background-color: #919191; */
   color: #000;
   margin: 0;
   font-size: 14px;
   border-radius: 20px 20px 0 0;
   font-family: "Recursive", sans-serif;
+  font-weight: bold;
 }
 
 .day {
