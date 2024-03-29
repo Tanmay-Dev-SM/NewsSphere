@@ -10,9 +10,11 @@ import {
   resetLocationStore,
 } from "src/reducers/location/location";
 
-import TabBar, { topics } from "src/components/TabBar/TabBar";
+import TabBar from "src/components/TabBar/TabBar";
+import TabBarNew from "src/components/TabBar/TabBarNew";
 import WeatherCard from "src/components/WeatherCard/Card";
 import { DetailedNews } from "src/routes";
+import { topics } from "src/constants/topics";
 
 const dummyData = {
   status: "success",
@@ -473,7 +475,7 @@ function HomePage() {
       const response = await axios.get(
         `${endpoint}?apikey=${api_key}&q=${query}&language=en`
       );
-      setNewsData(response?.data );
+      setNewsData(response?.data);
       handleLoadingClose();
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -515,7 +517,8 @@ function HomePage() {
         <p>Loading...</p>
       ) : (
         <Grid container className="root">
-          <TabBar selectedTab={selectedTab} handleChange={handleChange} />
+          {/* <TabBar selectedTab={selectedTab} handleChange={handleChange} /> */}
+          <TabBarNew selectedTab={selectedTab} handleChange={handleChange} />
           <Grid container style={{ flexWrap: "nowrap" }}>
             <Grid item md={1}></Grid>
             <Grid item md={9} className="cardsContainer">

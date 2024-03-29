@@ -2,31 +2,8 @@ import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import {
-  Home,
-  SportsSoccer,
-  LocationOn,
-  Public,
-  Science,
-  Computer,
-  Movie,
-  AccountBalance,
-  BusinessCenter,
-} from "@mui/icons-material";
-import FlightIcon from "@mui/icons-material/Flight";
-
-export const topics = [
-  { label: "Top", Icon: Home, color: "#3478BC" },
-  { label: "Sports", Icon: SportsSoccer, color: "#AF640D" },
-  { label: "Local", Icon: LocationOn, color: "#6B6B6B" },
-  { label: "World", Icon: Public, color: "#697E30" },
-  { label: "Science", Icon: Science, color: "#7B2D00" },
-  { label: "Technology", Icon: Computer, color: "#00809D" },
-  { label: "Entertainment", Icon: Movie, color: "#6E5C96" },
-  { label: "Politics", Icon: AccountBalance, color: "#A62D76" },
-  { label: "Business", Icon: BusinessCenter, color: "#363E62" },
-  { label: "Tourism", Icon: FlightIcon, color: "#FF4F4B" },
-];
+import { Grid } from "@mui/material";
+import { topics } from "src/constants/topics";
 
 function TabBar({ selectedTab, handleChange }) {
   return (
@@ -44,7 +21,7 @@ function TabBar({ selectedTab, handleChange }) {
       <Tabs value={selectedTab} onChange={handleChange}>
         {topics.map((topic, index) => (
           <Tab
-            icon={<topic.Icon sx={{ marginRight: '0.3em' }}/>}
+            icon={topics.icon}
             label={topic.label}
             key={index}
             style={{

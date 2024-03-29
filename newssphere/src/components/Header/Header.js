@@ -16,12 +16,16 @@ import {
   MoreVert as MoreIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
+import { useSelector, useDispatch } from "react-redux";
 import "./styles.css";
-
 import { LogoPNG } from "src/constants/customIcons";
 import SearchOptions from "./SearchOptions";
 import SettingsMenu from "../SettingsMenu/SettingsMenu";
 import TabBar from "../TabBar/TabBar";
+import {
+  resetSearchStore,
+  updateSearchStore,
+} from "src/reducers/search/search";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   width: "100%",
@@ -63,6 +67,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 }));
 
 const defaultSearchOptions = {
+  query: "",
   exact_phrase: "",
   has_words: "",
   exclude_words: "",
@@ -71,6 +76,8 @@ const defaultSearchOptions = {
 };
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const search = useSelector((state) => state.search);
   const menuId = "primary-search-account-menu";
   const mobileMenuId = "primary-search-account-menu-mobile";
 
@@ -86,10 +93,21 @@ export default function Header() {
     setSearchOptions({ ...defaultSearchOptions });
   }
  
+  // useEffect(() => {
+  //   dispatch(updateSearchStore({ ...defaultSearchOptions }));
+  // }, []);
+
+  useEffect(() => {
+    dispatch(updateSearchStore({ ...defaultSearchOptions }));
+
+    return () => {
+      dispatch(resetSearchStore({}));
+    };
+  }, []);
 
   return (
     <Box className="main">
-      <StyledAppBar>
+      <StyledAppBar elevation={1}>
         <Grid container className="gridContainer">
           <Grid item md={1} sm={2}>
             <LogoPNG />
@@ -112,6 +130,12 @@ export default function Header() {
                 // label="Search"
                 placeholder="Search for topics,location and sources"
                 variant="outlined"
+                value={search.query ?? ""}
+                onChange={(ev) => {
+                  dispatch(
+                    updateSearchStore({ ...search, query: ev.target.value })
+                  );
+                }}
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
                   startAdornment: <SearchIcon fontSize="small" />,
@@ -130,6 +154,11 @@ export default function Header() {
                       <ArrowDropDown fontSize="small" />
                     </IconButton>
                   ),
+                }}
+                onKeyDown={(ev) => {
+                  if (ev.key == "Enter") {
+                    ev.preventDefault();
+                  }
                 }}
               />
             </Grid>
