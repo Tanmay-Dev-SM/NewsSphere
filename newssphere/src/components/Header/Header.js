@@ -66,44 +66,28 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   flexWrap: "nowrap",
 }));
 
-const defaultSearchOptions = {
-  query: "",
-  exact_phrase: "",
-  has_words: "",
-  exclude_words: "",
-  website: "",
-  date: 0,
-};
-
-export default function Header() {
+export default function Header({
+  searchOptions = {},
+  setSearchOptions = () => {},
+}) {
   const dispatch = useDispatch();
   const search = useSelector((state) => state.search);
   const menuId = "primary-search-account-menu";
   const mobileMenuId = "primary-search-account-menu-mobile";
 
-  const [searchOptions, setSearchOptions] = React.useState({
-    ...defaultSearchOptions,
-  });
+  const [filters, setFilters] = useState({});
   const [anchorElForPopper, setAchorElForPopper] = useState(false);
 
   function handlePopperToggle(event) {
     setAchorElForPopper(!anchorElForPopper);
   }
   function clearSearchOptions() {
-    setSearchOptions({ ...defaultSearchOptions });
+    try {
+      setSearchOptions({});
+    } catch (error) {
+      console.log(error.message);
+    }
   }
- 
-  // useEffect(() => {
-  //   dispatch(updateSearchStore({ ...defaultSearchOptions }));
-  // }, []);
-
-  useEffect(() => {
-    dispatch(updateSearchStore({ ...defaultSearchOptions }));
-
-    return () => {
-      dispatch(resetSearchStore({}));
-    };
-  }, []);
 
   return (
     <Box className="main">
@@ -162,7 +146,8 @@ export default function Header() {
                 }}
               />
             </Grid>
-            <Grid item md={1} sm={2}> {/* Settings Menu */}
+            <Grid item md={1} sm={2}>
+              {/* Settings Menu */}
               <SettingsMenu aria-controls={menuId} />
             </Grid>
           </Grid>

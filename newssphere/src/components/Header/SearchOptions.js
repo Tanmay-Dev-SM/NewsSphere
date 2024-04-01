@@ -86,9 +86,10 @@ const dateOptions = [
 function SearchOptions({
   open = false,
   onClose = () => {},
-  searchOptions,
+  searchOptions = {},
   setSearchOptions = () => {},
   clearSearchOptions = () => {},
+  handleSearch = () => {},
 }) {
   return (
     open && (
@@ -211,7 +212,7 @@ function SearchOptions({
                 customHeight="32px"
                 customWidth="96px"
                 borderRadius="16px"
-                onClick={clearSearchOptions}
+                onClick={() => clearSearchOptions()}
               />
             </Grid>
             <Grid item>
@@ -220,7 +221,7 @@ function SearchOptions({
                 customHeight="32px"
                 customWidth="96px"
                 borderRadius="16px"
-                // onClick={handleSearch}
+                onClick={() => handleSearch()}
               />
             </Grid>
           </Grid>

@@ -12,7 +12,7 @@ function SecondaryButton({
   customMargin = 0,
   borderRadius = 4,
 }) {
-  let bgcolor = variant === "contained" ? "#00488d" : "#FFF";
+  let bgcolor = variant === "contained" ? "#00488d" : "";
   let color = variant == "contained" ? "#FFF" : "#00488d";
 
   return (
@@ -30,6 +30,7 @@ function SecondaryButton({
       sx={{
         color: color,
         backgroundColor: bgcolor,
+        textTransform: "none",
         ":hover": {
           color: color,
           backgroundColor: bgcolor,

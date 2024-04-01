@@ -15,6 +15,7 @@ import TabBarNew from "src/components/TabBar/TabBarNew";
 import WeatherCard from "src/components/WeatherCard/Card";
 import { DetailedNews } from "src/routes";
 import { topics } from "src/constants/topics";
+import { useOutletContext } from "react-router-dom";
 
 const dummyData = {
   status: "success",
@@ -437,7 +438,8 @@ const dummyData = {
 };
 function HomePage() {
   const dispatch = useDispatch();
-  const [newsData, setNewsData] = useState(dummyData);
+  const [newsData, setNewsData] = useState({});
+  const [searchOptions, setSearchOptions] = useOutletContext();
   const [loading, setLoading] = useState(true);
   const [coords, setCoords] = useState({});
 
@@ -453,7 +455,7 @@ function HomePage() {
   };
 
   useEffect(() => {
-    // fetchNewsArticles();
+    fetchNewsArticles(searchOptions?.query ?? null);
     setLoading(false);
     getGeolocation();
   }, []);
@@ -500,7 +502,6 @@ function HomePage() {
         const response = await axios.get(
           `${endpoint}?lat=${coords?.latitude}&lon=${coords?.longitude}&appid=${api_key}&units=imperial`
         );
-        console.log(response.data);
         dispatch(
           updateLocationStore({
             ...response.data,
