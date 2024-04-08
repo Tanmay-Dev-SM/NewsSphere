@@ -54,7 +54,7 @@ function LanguageModal({ open, onClose }) {
             customHeight="32px"
             customWidth="96px"
             borderRadius="16px"
-            // onClick={closeLanguageOptions}
+            onClick={onClose}
           />
           <PrimaryButton
             title="Update"

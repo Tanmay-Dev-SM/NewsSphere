@@ -21,6 +21,7 @@ import "./styles.css";
 import { LogoPNG } from "src/constants/customIcons";
 import SearchOptions from "./SearchOptions";
 import SettingsMenu from "../SettingsMenu/SettingsMenu";
+import ProfileMenu from "../SettingsMenu/ProfileMenu";
 import TabBar from "../TabBar/TabBar";
 import {
   resetSearchStore,
@@ -30,36 +31,43 @@ import {
 const StyledTextField = styled(TextField)(({ theme }) => ({
   width: "100%",
   backgroundColor: "#F1F3F4",
+  borderRadius: "6px",
   "& label": {
     transform: "translate(10px, 10px) scale(1)",
-    fontSize: "11px",
+    fontSize: "13px",
+    zIndex: 1,
   },
   "& label.MuiInputLabel-shrink": {
     transform: "translate(14px, -6px) scale(0.85)",
   },
   "& input": {
     padding: "8px 10px",
-    fontSize: "11px",
+    fontSize: "13px",
+    zIndex: 1,
   },
   "& label.Mui-focused": {
     color: "#2981E9",
   },
   "& .MuiOutlinedInput-root": {
-    borderRadius: "6px",
+    border: "none",
+   // borderRadius: "60px",
     "& fieldset": {
-      borderColor: "#A5ADB0",
+      border: "none",
     },
     "&:hover fieldset": {
-      borderColor: "#6A6A7D",
+     // border: "none",
+      // borderColor: "#transparent",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "#2981E9",
-      borderWidth: "2px",
+      //border: "solid",
+      boxShadow: "0px 1px 2px 1px rgba(0, 0, 0, 0.2)",
+      backgroundColor: "white",
+      zIndex: 0,
     },
   },
   "& .MuiOutlinedInput-input": {},
   "& .MuiInputLabel-outlined.MuiInputLabel-marginDense": {},
-}));
+})); 
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: "#FFF",
@@ -112,7 +120,7 @@ export default function Header({
               />
               <StyledTextField
                 // label="Search"
-                placeholder="Search for topics,location and sources"
+                placeholder="Search for topics, location and sources"
                 variant="outlined"
                 value={search.query ?? ""}
                 onChange={(ev) => {
@@ -122,7 +130,7 @@ export default function Header({
                 }}
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
-                  startAdornment: <SearchIcon fontSize="small" />,
+                  startAdornment: <SearchIcon fontSize="small" sx={{ zIndex: 1 }} />,
                   endAdornment: (
                     <IconButton
                       sx={{
@@ -135,7 +143,7 @@ export default function Header({
                       disableRipple={true}
                       onClick={handlePopperToggle}
                     >
-                      <ArrowDropDown fontSize="small" />
+                      <ArrowDropDown fontSize="small" sx={{ zIndex: 1 }} />
                     </IconButton>
                   ),
                 }}
@@ -160,17 +168,7 @@ export default function Header({
             }}
             className="menuOptions"
           >
-            <IconButton
-              className="optionsIcon"
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              //onClick={handleProfileMenuOpen}
-            >
-              <AccountCircle />
-            </IconButton>
+              <ProfileMenu />
           </Grid>
           <Grid
             item

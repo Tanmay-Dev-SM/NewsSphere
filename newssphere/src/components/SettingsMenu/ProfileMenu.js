@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { Menu, MenuItem, IconButton } from "@mui/material";
+import { Menu, MenuItem, IconButton, } from "@mui/material";
+import { AccountCircle } from "@mui/icons-material";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
-import LanguageModal from "./LanguageModal";
 
 const menuOptions = [
   {
     value: 0,
-    label: "Language & Region",
+    label: "View Profile",
+  },
+  {
+    value: 1,
+    label: "Logout",
   },
 ];
-const SettingsMenu = () => {
+const ProfileMenu = () => {
   const [anchorSettings, setAnchorSettings] = useState(null);
   const [open, setOpen] = useState(false);
   const handleClose = () => {
@@ -43,15 +47,15 @@ const SettingsMenu = () => {
   return (
     <div>
       <IconButton
-        variant="contained"
+        className="optionsIcon"
         onClick={handleClick}
         size="large"
         edge="end"
-        aria-label="search settings menu"
+        aria-label="account of current user"
         aria-haspopup="true"
-        // color="inherit"
+        //onClick={handleProfileMenuOpen}
       >
-        <SettingsOutlined />
+        <AccountCircle />
       </IconButton>
 
       <Menu anchorEl={anchorSettings} open={open} onClose={handleClose}>
@@ -69,13 +73,8 @@ const SettingsMenu = () => {
           Language & Region
         </MenuItem> */}
       </Menu>
-
-      <LanguageModal
-        open={isLanguageModalOpen}
-        onClose={() => setLanguageModalOpen(false)}
-      />
     </div>
   );
 };
 
-export default SettingsMenu;
+export default ProfileMenu;

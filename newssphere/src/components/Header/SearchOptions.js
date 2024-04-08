@@ -21,14 +21,14 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   // backgroundColor: "#F1F3F4",
   "& label": {
     transform: "translate(10px, 10px) scale(1)",
-    fontSize: "11px",
+    fontSize: "13px",
   },
   "& label.MuiInputLabel-shrink": {
     transform: "translate(14px, -6px) scale(0.85)",
   },
   "& input": {
     padding: "8px 0px",
-    fontSize: "11px",
+    fontSize: "13px",
   },
   "& label.Mui-focused": {
     color: "#2981E9",
