@@ -13,7 +13,7 @@ function SecondaryButton({
   borderRadius = 4,
 }) {
   let bgcolor = variant === "contained" ? "#00488d" : "";
-  let color = variant == "contained" ? "#FFF" : "#00488d";
+  let color = variant === "contained" ? "#FFF" : "#00488d";
 
   return (
     <Button
