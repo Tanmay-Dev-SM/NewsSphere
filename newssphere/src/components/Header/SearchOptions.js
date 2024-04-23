@@ -1,10 +1,5 @@
-import React from "react";
-import {
-  Grid,
-  TextField,
-  ClickAwayListener,
-  FormControl,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Grid, TextField, ClickAwayListener, FormControl } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import "./styles.css";
 
@@ -90,6 +85,7 @@ function SearchOptions({
   clearSearchOptions = () => {},
   handleSearch = () => {},
 }) {
+  const [filters, setFilters] = useState({ ...searchOptions });
   return (
     open && (
       <ClickAwayListener onClickAway={onClose}>

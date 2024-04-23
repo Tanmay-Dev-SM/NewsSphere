@@ -5,7 +5,7 @@ import LanguageModal from "./LanguageModal";
 
 const menuOptions = [
   {
-    value: 0,
+    value: 1,
     label: "Language & Region",
   },
 ];

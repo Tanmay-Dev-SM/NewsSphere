@@ -35,3 +35,24 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.articleMain {
+  /* position: relative; */
+  gap: 24px;
+}
+.options {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 4px;
+  border-radius: 20px;
+  background-color: #fff;
+  top: 20%;
+  left: 4%;
+  border: 1px solid #d6d6d6;
+  box-shadow: 0px 0px 8px 0px #cccc;
+}
+.optionButton {
+  transition: ease-in 0.5s;
+}

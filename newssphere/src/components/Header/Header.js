@@ -27,7 +27,7 @@ import {
   resetSearchStore,
   updateSearchStore,
 } from "src/reducers/search/search";
-
+import { useNavigate } from "react-router-dom";
 const StyledTextField = styled(TextField)(({ theme }) => ({
   width: "100%",
   backgroundColor: "#F1F3F4",
@@ -50,12 +50,12 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
   "& .MuiOutlinedInput-root": {
     border: "none",
-   // borderRadius: "60px",
+    // borderRadius: "60px",
     "& fieldset": {
       border: "none",
     },
     "&:hover fieldset": {
-     // border: "none",
+      // border: "none",
       // borderColor: "#transparent",
     },
     "&.Mui-focused fieldset": {
@@ -67,7 +67,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
   "& .MuiOutlinedInput-input": {},
   "& .MuiInputLabel-outlined.MuiInputLabel-marginDense": {},
-})); 
+}));
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: "#FFF",
@@ -80,10 +80,10 @@ export default function Header({
 }) {
   const dispatch = useDispatch();
   const search = useSelector((state) => state.search);
+  const navigate = useNavigate();
   const menuId = "primary-search-account-menu";
   const mobileMenuId = "primary-search-account-menu-mobile";
 
-  const [filters, setFilters] = useState({});
   const [anchorElForPopper, setAchorElForPopper] = useState(false);
 
   function handlePopperToggle(event) {
@@ -102,7 +102,14 @@ export default function Header({
       <StyledAppBar elevation={1}>
         <Grid container className="gridContainer">
           <Grid item md={1} sm={2}>
-            <LogoPNG />
+            <span
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              <LogoPNG />
+            </span>
           </Grid>
           <Grid
             md={5}
@@ -130,7 +137,9 @@ export default function Header({
                 }}
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
-                  startAdornment: <SearchIcon fontSize="small" sx={{ zIndex: 1 }} />,
+                  startAdornment: (
+                    <SearchIcon fontSize="small" sx={{ zIndex: 1 }} />
+                  ),
                   endAdornment: (
                     <IconButton
                       sx={{
@@ -168,7 +177,7 @@ export default function Header({
             }}
             className="menuOptions"
           >
-              <ProfileMenu />
+            <ProfileMenu />
           </Grid>
           <Grid
             item
