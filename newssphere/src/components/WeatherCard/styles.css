@@ -1,0 +1,71 @@
+.weatherMain {
+  width: 100%;
+  border-radius: 20px;
+  background-color: #f8f8f8;
+  box-shadow: 0 0px 6px 1px #00000024;
+}
+
+.top {
+  background-color: #c1dbeb;
+  color: #222;
+  padding: 12px;
+  border-radius: 20px 20px 0 0;
+  font-family: "Recursive", sans-serif;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  gap: 8px;
+}
+
+.header {
+  /* background-color: #919191; */
+  color: #000;
+  margin: 0;
+  font-size: 14px;
+  border-radius: 20px 20px 0 0;
+  font-family: "Recursive", sans-serif;
+  font-weight: bold;
+}
+
+.day {
+  padding: 8px;
+  margin: 0;
+  color: #222;
+  font-family: "Recursive", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.temp {
+  padding: 8px;
+  margin: 0;
+  color: #222;
+  font-family: "Recursive", sans-serif;
+  font-size: 13px;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sunrise-sunset {
+  padding: 8px;
+  margin: 0;
+  color: #222;
+  font-family: "Recursive", sans-serif;
+  font-size: 10px;
+}
+
+.description {
+  padding: 8px;
+  margin: 0;
+  color: #222;
+  font-family: "Recursive", sans-serif;
+  /* font-size: 16px; */
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

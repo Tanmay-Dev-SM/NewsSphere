@@ -1,0 +1,80 @@
+import { useState } from "react";
+import { Menu, MenuItem, IconButton } from "@mui/material";
+import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
+import LanguageModal from "./LanguageModal";
+import { useTranslation } from "react-i18next";
+
+const menuOptions = [
+  {
+    value: 1,
+    label: "langRegionLabel",
+  },
+];
+const SettingsMenu = () => {
+  const { t } = useTranslation();
+  const [anchorSettings, setAnchorSettings] = useState(null);
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setAnchorSettings(null);
+    setOpen(false);
+  };
+  const handleClick = (e) => {
+    setAnchorSettings(e.currentTarget);
+    setOpen(true);
+  };
+  const [isLanguageModalOpen, setLanguageModalOpen] = useState(false);
+  const handleLanguageModalOpen = () => {
+    setLanguageModalOpen(true);
+    handleClose();
+  };
+
+  const handleSettings = (setting) => {
+    switch (setting) {
+      case 0:
+        handleClose();
+        break;
+      case 1:
+        handleLanguageModalOpen();
+        break;
+      default:
+        handleClose();
+        break;
+    }
+  };
+
+  return (
+    <div>
+      <IconButton
+        variant="contained"
+        onClick={handleClick}
+        size="large"
+        edge="end"
+        aria-label="search settings menu"
+        aria-haspopup="true"
+        // color="inherit"
+      >
+        <SettingsOutlined />
+      </IconButton>
+
+      <Menu anchorEl={anchorSettings} open={open} onClose={handleClose}>
+        {menuOptions?.map((option) => (
+          <MenuItem
+            sx={{ fontSize: "13px" }}
+            onClick={() => {
+              handleSettings(option.value);
+            }}
+          >
+            {t(option.label)}
+          </MenuItem>
+        ))}
+      </Menu>
+
+      <LanguageModal
+        open={isLanguageModalOpen}
+        onClose={() => setLanguageModalOpen(false)}
+      />
+    </div>
+  );
+};
+
+export default SettingsMenu;

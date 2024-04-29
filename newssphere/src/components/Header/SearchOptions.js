@@ -1,11 +1,5 @@
-import React from "react";
-import {
-  Grid,
-  TextField,
-  ClickAwayListener,
-  MenuItem,
-  FormControl,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Grid, TextField, ClickAwayListener, FormControl } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import "./styles.css";
 
@@ -21,14 +15,14 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   // backgroundColor: "#F1F3F4",
   "& label": {
     transform: "translate(10px, 10px) scale(1)",
-    fontSize: "11px",
+    fontSize: "13px",
   },
   "& label.MuiInputLabel-shrink": {
     transform: "translate(14px, -6px) scale(0.85)",
   },
   "& input": {
     padding: "8px 0px",
-    fontSize: "11px",
+    fontSize: "13px",
   },
   "& label.Mui-focused": {
     color: "#2981E9",
@@ -86,10 +80,12 @@ const dateOptions = [
 function SearchOptions({
   open = false,
   onClose = () => {},
-  searchOptions,
+  searchOptions = {},
   setSearchOptions = () => {},
   clearSearchOptions = () => {},
+  handleSearch = () => {},
 }) {
+  const [filters, setFilters] = useState({ ...searchOptions });
   return (
     open && (
       <ClickAwayListener onClickAway={onClose}>
@@ -211,7 +207,7 @@ function SearchOptions({
                 customHeight="32px"
                 customWidth="96px"
                 borderRadius="16px"
-                onClick={clearSearchOptions}
+                onClick={() => clearSearchOptions()}
               />
             </Grid>
             <Grid item>
@@ -220,7 +216,7 @@ function SearchOptions({
                 customHeight="32px"
                 customWidth="96px"
                 borderRadius="16px"
-                // onClick={handleSearch}
+                onClick={() => handleSearch()}
               />
             </Grid>
           </Grid>

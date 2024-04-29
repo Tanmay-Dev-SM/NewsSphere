@@ -1,0 +1,19 @@
+{
+  "langOptHeader": "Idioma y Región de interés",
+  "selectLang": "Selecciona un idioma",
+  "languages": [
+    { "value": "en", "label": "Inglés" },
+    { "value": "es", "label": "Español" },
+    { "value": "hi", "label": "Hindi" }
+  ],
+  "searchBarLabel": "Buscar temas, ubicaciones y fuentes",
+  "updateButton": "Actualizar",
+  "cancelButton": "Cancelar",
+  "topics": {
+    "top": "Principal",
+    "sports": "Deportes",
+    "entertainment": "Entretenimiento",
+    "business": "Negocios"
+  },
+  "langRegionLabel": "Idioma y Región"
+}

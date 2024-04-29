@@ -12,44 +12,57 @@ import {
 import {
   KeyboardArrowDown,
   ArrowDropDown,
-  SettingsOutlined,
   AccountCircle,
   MoreVert as MoreIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
+import { useSelector, useDispatch } from "react-redux";
 import "./styles.css";
-
 import { LogoPNG } from "src/constants/customIcons";
 import SearchOptions from "./SearchOptions";
-
+import SettingsMenu from "../SettingsMenu/SettingsMenu";
+import ProfileMenu from "../SettingsMenu/ProfileMenu";
+import {
+  resetSearchStore,
+  updateSearchStore,
+} from "src/reducers/search/search";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 const StyledTextField = styled(TextField)(({ theme }) => ({
   width: "100%",
   backgroundColor: "#F1F3F4",
+  borderRadius: "6px",
   "& label": {
     transform: "translate(10px, 10px) scale(1)",
-    fontSize: "11px",
+    fontSize: "13px",
+    zIndex: 1,
   },
   "& label.MuiInputLabel-shrink": {
     transform: "translate(14px, -6px) scale(0.85)",
   },
   "& input": {
     padding: "8px 10px",
-    fontSize: "11px",
+    fontSize: "13px",
+    zIndex: 1,
   },
   "& label.Mui-focused": {
     color: "#2981E9",
   },
   "& .MuiOutlinedInput-root": {
-    borderRadius: "6px",
+    border: "none",
+    // borderRadius: "60px",
     "& fieldset": {
-      borderColor: "#A5ADB0",
+      border: "none",
     },
     "&:hover fieldset": {
-      borderColor: "#6A6A7D",
+      // border: "none",
+      // borderColor: "#transparent",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "#2981E9",
-      borderWidth: "2px",
+      //border: "solid",
+      boxShadow: "0px 1px 2px 1px rgba(0, 0, 0, 0.2)",
+      backgroundColor: "white",
+      zIndex: 0,
     },
   },
   "& .MuiOutlinedInput-input": {},
@@ -60,34 +73,63 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: "#FFF",
   flexWrap: "nowrap",
 }));
+
 const defaultSearchOptions = {
+  query: null,
   exact_phrase: "",
   has_words: "",
   exclude_words: "",
   website: "",
   date: 0,
+  source_lang: "en",
+  dest_lang: "en",
 };
-export default function Header() {
+
+export default function Header({ searchOptions = {} }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   const menuId = "primary-search-account-menu";
   const mobileMenuId = "primary-search-account-menu-mobile";
 
-  const [searchOptions, setSearchOptions] = React.useState({
-    ...defaultSearchOptions,
-  });
   const [anchorElForPopper, setAchorElForPopper] = useState(false);
+  const [filters, setFilters] = useState({ ...searchOptions });
 
   function handlePopperToggle(event) {
     setAchorElForPopper(!anchorElForPopper);
   }
   function clearSearchOptions() {
-    setSearchOptions({ ...defaultSearchOptions });
+    try {
+      dispatch(
+        updateSearchStore({ ...searchOptions, ...defaultSearchOptions })
+      );
+      setFilters({ ...defaultSearchOptions });
+    } catch (error) {
+      console.log(error.message);
+    }
   }
+  function updateSearchOptions() {
+    try {
+      dispatch(updateSearchStore({ ...filters }));
+      // setSearchOptions({ ...filters });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   return (
     <Box className="main">
-      <StyledAppBar>
+      <StyledAppBar elevation={1}>
         <Grid container className="gridContainer">
           <Grid item md={1} sm={2}>
-            <LogoPNG />
+            <span
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              <LogoPNG />
+            </span>
           </Grid>
           <Grid
             md={5}
@@ -99,47 +141,53 @@ export default function Header() {
               <SearchOptions
                 open={anchorElForPopper}
                 onClose={handlePopperToggle}
-                searchOptions={searchOptions}
-                setSearchOptions={setSearchOptions}
+                searchOptions={filters}
+                setSearchOptions={setFilters}
                 clearSearchOptions={clearSearchOptions}
+                updateSearchOptions={updateSearchOptions}
               />
               <StyledTextField
-                // label="Search"
-                placeholder="Search for topics,location and sources"
+                placeholder={t("searchBarLabel")}
                 variant="outlined"
+                value={filters.query ?? ""}
+                onChange={(ev) => {
+                  // dispatch(
+                  //   updateSearchStore({ ...search, query: ev.target.value })
+                  // );
+                  setFilters({ ...filters, query: ev.target.value });
+                }}
+                onKeyDown={(ev) => {
+                  if (ev.key == "Enter") {
+                    ev.preventDefault();
+                    updateSearchOptions();
+                  }
+                }}
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
-                  startAdornment: <SearchIcon fontSize="small" />,
-                  endAdornment: (
-                    <IconButton
-                      sx={{
-                        p: "0",
-                        transform: anchorElForPopper ? "rotate(180deg)" : "",
-                        transition: "ease 0.5s",
-                      }}
-                      disableFocusRipple={true}
-                      disableTouchRipple={true}
-                      disableRipple={true}
-                      onClick={handlePopperToggle}
-                    >
-                      <ArrowDropDown fontSize="small" />
-                    </IconButton>
+                  startAdornment: (
+                    <SearchIcon fontSize="small" sx={{ zIndex: 1 }} />
                   ),
+                  // endAdornment: (
+                  //   <IconButton
+                  //     sx={{
+                  //       p: "0",
+                  //       transform: anchorElForPopper ? "rotate(180deg)" : "",
+                  //       transition: "ease 0.5s",
+                  //     }}
+                  //     disableFocusRipple={true}
+                  //     disableTouchRipple={true}
+                  //     disableRipple={true}
+                  //     onClick={handlePopperToggle}
+                  //   >
+                  //     <ArrowDropDown fontSize="small" sx={{ zIndex: 1 }} />
+                  //   </IconButton>
+                  // ),
                 }}
               />
             </Grid>
             <Grid item md={1} sm={2}>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                //onClick={handleSettingsMenuOpen}
-                // color="inherit"
-              >
-                <SettingsOutlined />
-              </IconButton>
+              {/* Settings Menu */}
+              <SettingsMenu aria-controls={menuId} />
             </Grid>
           </Grid>
           <Grid
@@ -151,17 +199,7 @@ export default function Header() {
             }}
             className="menuOptions"
           >
-            <IconButton
-              className="optionsIcon"
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              //onClick={handleProfileMenuOpen}
-            >
-              <AccountCircle />
-            </IconButton>
+            <ProfileMenu />
           </Grid>
           <Grid
             item

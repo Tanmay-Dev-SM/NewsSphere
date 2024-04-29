@@ -1,10 +1,10 @@
-import React from "react"
+import React from "react";
 import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
-} from "react-router-dom"
-import { Layout, Home, ErrorPage, DetailedNews, Login } from "src/routes"
+} from "react-router-dom";
+import { Layout, Home, ErrorPage, DetailedNews, Login } from "src/routes";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +20,6 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
     </>
   )
-)
+);
 
-export default router
+export default router;

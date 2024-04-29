@@ -1,0 +1,43 @@
+.loading-card {
+  width: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0.5rem;
+}
+
+.loading-image {
+  width: 180px;
+  height: 100px; /* Adjust as needed */
+  border-radius: 6px;
+  background-color: #ccc; /* Gray background color */
+  animation: pulse-animation 1.5s infinite alternate; /* Animation */
+}
+
+.loading-content {
+  padding: 1rem;
+}
+
+.loading-title {
+  width: 100%; /* Adjust as needed */
+  height: 1rem; /* Adjust as needed */
+  background-color: #ccc; /* Gray background color */
+  animation: pulse-animation 1.5s infinite alternate; /* Animation */
+}
+
+/* Animation */
+@keyframes pulse-animation {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loading-posts {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-auto-flow: row;
+  gap: 1rem;
+}
