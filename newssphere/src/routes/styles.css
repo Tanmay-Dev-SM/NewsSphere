@@ -5,7 +5,7 @@
   flex-wrap: wrap;
   gap: 16px;
   padding: 16px;
-  height: calc(100% - 64px);
+  height: calc(100%);
   background: linear-gradient(180deg, #d8e5f2, transparent);
 }
 .homePageCard {

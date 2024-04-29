@@ -20,9 +20,9 @@ export default function Layout() {
   const [searchOptions, setSearchOptions] = React.useState({});
   const search = useSelector((state) => state.search);
   return (
-    <>
+    <div style={{ height: "100%" }}>
       <Header searchOptions={search} setSearchOptions={setSearchOptions} />
       <Outlet />
-    </>
+    </div>
   );
 }

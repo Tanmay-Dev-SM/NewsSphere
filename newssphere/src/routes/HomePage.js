@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -10,6 +10,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
+import clsx from "clsx";
 
 import "./styles.css";
 import {
@@ -24,6 +25,8 @@ import { DetailedNews } from "src/routes";
 import { topics } from "src/constants/topics";
 import { useOutletContext } from "react-router-dom";
 import scrapedData from "src/scraped_data_TopStories.json";
+import useLazyLoad from "src/useLazyLoad";
+import { LoadingPosts } from "src/LoadingPosts";
 
 const dummyData = {
   status: "success",
@@ -288,10 +291,30 @@ function HomePage() {
   const [newsData, setNewsData] = useState([...scrapedData]);
   const searchOptions = useSelector((state) => state.search);
   // const [searchOptions, setSearchOptions] = useOutletContext();
-  const [loading, setLoading] = useState(true);
+  const [loadingOpen, setLoadingOpen] = useState(true);
   const [coords, setCoords] = useState({});
 
   const [selectedTab, setSelectedTab] = useState(0);
+
+  const triggerRef = useRef(null);
+  const onGrabData = (currentPage) => {
+    // This would be where you'll call your API
+    return new Promise((resolve) => {
+      const NUM_PER_PAGE = 6;
+      const TOTAL_PAGES = parseInt((newsData?.length || 0) / NUM_PER_PAGE);
+      setTimeout(() => {
+        const newData = newsData
+          ?.slice(8)
+          ?.slice(
+            ((currentPage - 1) % TOTAL_PAGES) * NUM_PER_PAGE,
+            NUM_PER_PAGE * (currentPage % TOTAL_PAGES)
+          );
+        // console.log(newData);
+        resolve(newData);
+      }, 200);
+    });
+  };
+  const { data, loading } = useLazyLoad({ triggerRef, onGrabData });
 
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -320,10 +343,10 @@ function HomePage() {
   }, [coords]);
 
   function handleLoadingOpen() {
-    setLoading(true);
+    setLoadingOpen(true);
   }
   function handleLoadingClose() {
-    setLoading(false);
+    setLoadingOpen(false);
   }
 
   async function fetchNewsArticles(options) {
@@ -336,6 +359,19 @@ function HomePage() {
             options?.query || null
           }&language=en`
         );
+        setNewsData(response?.data);
+        handleLoadingClose();
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      handleLoadingClose();
+    }
+  }
+  async function fetchArticleDetails(data) {
+    try {
+      if (data?.index) {
+        const endpoint = "https://newsdata.io/api/1/news";
+        const response = await axios.post(`${endpoint}`);
         setNewsData(response?.data);
         handleLoadingClose();
       }
@@ -373,11 +409,11 @@ function HomePage() {
     }
   }
   return (
-    <div>
-      {loading ? (
+    <div style={{ height: "100%" }}>
+      {loadingOpen ? (
         <Backdrop
           sx={{ color: "#000", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={loading}
+          open={loadingOpen}
           // onClick={handleLoadingClose}
         >
           <CircularProgress />
@@ -389,6 +425,7 @@ function HomePage() {
           style={{
             // background: `linear-gradient(180deg, ${topics?.[selectedTab]?.color}80, transparent) `,
             boxShadow: `inset 0px 100px 200px ${topics?.[selectedTab]?.color}80`,
+            overflow: "auto",
           }}
         >
           <Grid container style={{ flexWrap: "nowrap" }}>
@@ -443,24 +480,27 @@ function HomePage() {
                   </Grid>
                 ))}
               {newsData?.length > 8 && (
-                <div>
-                  <div style={{ padding: "8px 0" }}>
-                    <Divider
-                      textAlign="left"
-                      style={{ fontSize: "larger", fontWeight: 600 }}
-                    >
-                      More News
-                    </Divider>
-                  </div>
-                  {newsData
-                    // ?.filter((news) => news?.Thumbnail_Link != "N/A")
-                    ?.slice(8)
-                    ?.map((news) => (
+                <>
+                  <div>
+                    <div style={{ padding: "8px 0" }}>
+                      <Divider
+                        textAlign="left"
+                        style={{ fontSize: "larger", fontWeight: 600 }}
+                      >
+                        More News
+                      </Divider>
+                    </div>
+                    {data?.slice(8)?.map((news) => (
                       <>
                         <Grid
                           container
                           flexWrap="nowrap"
-                          style={{ height: "120px", padding: "8px" }}
+                          onClick={() => fetchArticleDetails(news)}
+                          style={{
+                            height: "120px",
+                            padding: "8px",
+                            gap: "16px",
+                          }}
                         >
                           <Grid
                             item
@@ -487,7 +527,15 @@ function HomePage() {
                         <Divider style={{ margin: "8px" }} />
                       </>
                     ))}
-                </div>
+                  </div>
+                  <div
+                    style={{ width: "100%" }}
+                    className={clsx("trigger", { visible: loading })}
+                    ref={triggerRef}
+                  >
+                    <LoadingPosts />
+                  </div>
+                </>
               )}
             </Grid>
             <Grid item md={2} sm={3} style={{ padding: "0 8px 0 16px" }}>
