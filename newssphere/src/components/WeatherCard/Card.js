@@ -81,7 +81,7 @@ const WeatherCard = ({ fetchWeather = () => {} }) => {
 
       <div className="flex">
         <p className="sunrise-sunset">
-          Sunrise:{" "}
+          Sunrise:
           {new Date(location?.sys?.sunrise * 1000)?.toLocaleTimeString("en-US")}
         </p>
         <p className="sunrise-sunset">

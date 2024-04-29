@@ -8,7 +8,7 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import router from "src/routes/routes";
 import { store } from "./store";
-import "./i18n.js";
+import "./i18n/i18n.js";
 
 let persistor = persistStore(store);
 

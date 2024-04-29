@@ -1,0 +1,19 @@
+{
+  "langOptHeader": "भाषा और क्षेत्र की चयन",
+  "selectLang": "एक भाषा का चयन करें",
+  "languages": [
+    { "value": "en", "label": "अंग्रेज़ी" },
+    { "value": "es", "label": "स्पेनिश" },
+    { "value": "hi", "label": "हिंदी" }
+  ],
+  "searchBarLabel": "विषयों, स्थानों और स्रोतों के लिए खोजें",
+  "updateButton": "अपडेट करें",
+  "cancelButton": "रद्द करें",
+  "topics": {
+    "top": "शीर्ष",
+    "sports": "खेल",
+    "entertainment": "मनोरंजन",
+    "business": "व्यापार"
+  },
+  "langRegionLabel": "भाषा और क्षेत्र"
+}

@@ -27,6 +27,7 @@ import {
   updateSearchStore,
 } from "src/reducers/search/search";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 const StyledTextField = styled(TextField)(({ theme }) => ({
   width: "100%",
   backgroundColor: "#F1F3F4",
@@ -87,6 +88,7 @@ const defaultSearchOptions = {
 export default function Header({ searchOptions = {} }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const menuId = "primary-search-account-menu";
   const mobileMenuId = "primary-search-account-menu-mobile";
 
@@ -145,7 +147,7 @@ export default function Header({ searchOptions = {} }) {
                 updateSearchOptions={updateSearchOptions}
               />
               <StyledTextField
-                placeholder="Search for topics, location and sources"
+                placeholder={t("searchBarLabel")}
                 variant="outlined"
                 value={filters.query ?? ""}
                 onChange={(ev) => {

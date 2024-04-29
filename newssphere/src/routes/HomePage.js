@@ -16,12 +16,15 @@ import {
   updateLocationStore,
   resetLocationStore,
 } from "src/reducers/location/location";
+import { resetSearchStore } from "src/reducers/search/search";
 
 import TabBarNew from "src/components/TabBar/TabBarNew";
 import WeatherCard from "src/components/WeatherCard/Card";
 import { DetailedNews } from "src/routes";
 import { topics } from "src/constants/topics";
 import { useOutletContext } from "react-router-dom";
+import scrapedData from "src/scraped_data_TopStories.json";
+import { LoadingCard, LoadingPosts } from "src/components/LoadingCards/Cards";
 
 const dummyData = {
   status: "success",
@@ -283,7 +286,7 @@ const dummyData = {
 };
 function HomePage() {
   const dispatch = useDispatch();
-  const [newsData, setNewsData] = useState({ ...dummyData });
+  const [newsData, setNewsData] = useState([...scrapedData]);
   const searchOptions = useSelector((state) => state.search);
   // const [searchOptions, setSearchOptions] = useOutletContext();
   const [loading, setLoading] = useState(true);
@@ -299,13 +302,14 @@ function HomePage() {
   const handleItemClick = (news) => () => {
     navigate("/article", { state: { news } });
   };
-  console.log("HomePage", searchOptions);
 
   useEffect(() => {
     // fetchNewsArticles(searchOptions?.query ?? null);
     handleLoadingClose();
     getGeolocation();
-    
+    return () => {
+      dispatch(resetSearchStore({}));
+    };
   }, []);
 
   useEffect(() => {
@@ -380,22 +384,35 @@ function HomePage() {
           <CircularProgress />
         </Backdrop>
       ) : (
-        <Grid container className="root">
-          <TabBarNew selectedTab={selectedTab} handleChange={handleChange} />
+        <Grid
+          container
+          className="root"
+          style={{
+            // background: `linear-gradient(180deg, ${topics?.[selectedTab]?.color}80, transparent) `,
+            boxShadow: `inset 0px 100px 200px ${topics?.[selectedTab]?.color}80`,
+          }}
+        >
           <Grid container style={{ flexWrap: "nowrap" }}>
-            <Grid item md={1}></Grid>
-            <Grid item md={9} className="cardsContainer">
-              {newsData?.results
-                ?.filter((news) =>
-                  news.category.includes(
-                    topics[selectedTab].label.toLowerCase()
-                  )
-                )
+            <Grid item md={2} sm={1}>
+              <TabBarNew
+                selectedTab={selectedTab}
+                handleChange={handleChange}
+              />
+            </Grid>
+            <Grid item md={8} sm={8} className="cardsContainer">
+              {newsData
+                // ?.results
+                // ?.filter((news) =>
+                //   news.category.includes(
+                //     topics[selectedTab].label.toLowerCase()
+                //   )
+                // )
+                ?.filter((news) => news?.Thumbnail_Link != "N/A")
                 ?.slice(0, 8) // Filter news items first
                 ?.map((news, index) => (
                   <Grid
                     item
-                    flexBasis="calc(25% - 16px)"
+                    flexBasis="calc(24% - 16px)"
                     onClick={handleItemClick(news)}
                     style={{ margin: "8px" }}
                   >
@@ -404,7 +421,7 @@ function HomePage() {
                       className="homePageCard"
                       elevation={0}
                       sx={{
-                        backgroundImage: `linear-gradient(transparent 50%, #333333), url(${news.image_url})`,
+                        backgroundImage: `linear-gradient(transparent 50%, #333333), url(${news.Thumbnail_Link})`,
                         // transition: 'transform 0.2s ease-in-out', '&:hover': {transform: 'scale(1.1)'},
                         // Apply scale transformation on hover
                         //changed color
@@ -420,14 +437,61 @@ function HomePage() {
                           },
                         }}
                       >
-                        <h6 className="articleHeader">{news.title}</h6>
+                        <h6 className="articleHeader">{news.Main_Text}</h6>
                         {/* <body className="articleContent">{news.snippet}</body> */}
                       </CardContent>
                     </Card>
                   </Grid>
                 ))}
+              {newsData?.length > 8 && (
+                <div>
+                  <div style={{ padding: "8px 0" }}>
+                    <Divider
+                      textAlign="left"
+                      style={{ fontSize: "larger", fontWeight: 600 }}
+                    >
+                      More News
+                    </Divider>
+                  </div>
+                  {newsData
+                    // ?.filter((news) => news?.Thumbnail_Link != "N/A")
+                    ?.slice(8)
+                    ?.map((news) => (
+                      <>
+                        <Grid
+                          container
+                          flexWrap="nowrap"
+                          style={{ height: "120px", padding: "8px" }}
+                        >
+                          <Grid
+                            item
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              flexGrow: 1,
+                            }}
+                          >
+                            <h4 style={{ margin: "8px 0" }}>
+                              {news?.Main_Text}
+                            </h4>
+                            <span>{news?.Text_snippet}</span>
+                          </Grid>
+                          {news?.Thumbnail_Link && (
+                            <Grid item style={{ display: "flex" }}>
+                              <img
+                                src={news?.Thumbnail_Link}
+                                style={{ borderRadius: "12px" }}
+                              />
+                            </Grid>
+                          )}
+                        </Grid>
+                        <Divider style={{ margin: "8px" }} />
+                      </>
+                    ))}
+                </div>
+              )}
             </Grid>
-            <Grid item md={2} style={{ padding: "0 8px 0 16px" }}>
+            <Grid item md={2} sm={3} style={{ padding: "0 8px 0 16px" }}>
               <WeatherCard fetchWeather={fetchWeather} />
             </Grid>
           </Grid>

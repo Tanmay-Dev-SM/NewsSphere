@@ -2,14 +2,16 @@ import { useState } from "react";
 import { Menu, MenuItem, IconButton } from "@mui/material";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 import LanguageModal from "./LanguageModal";
+import { useTranslation } from "react-i18next";
 
 const menuOptions = [
   {
     value: 1,
-    label: "Language & Region",
+    label: "langRegionLabel",
   },
 ];
 const SettingsMenu = () => {
+  const { t } = useTranslation();
   const [anchorSettings, setAnchorSettings] = useState(null);
   const [open, setOpen] = useState(false);
   const handleClose = () => {
@@ -62,12 +64,9 @@ const SettingsMenu = () => {
               handleSettings(option.value);
             }}
           >
-            {option.label}
+            {t(option.label)}
           </MenuItem>
         ))}
-        {/* <MenuItem onClick={handleLanguageModalOpen} sx={{ fontSize: "13px" }}>
-          Language & Region
-        </MenuItem> */}
       </Menu>
 
       <LanguageModal

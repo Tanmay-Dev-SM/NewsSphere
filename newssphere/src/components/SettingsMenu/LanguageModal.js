@@ -69,7 +69,7 @@ function LanguageModal({ open, onClose }) {
         </div>
         <div className="button-space">
           <SecondaryButton
-            title="Cancel"
+            title={t("cancelButton")}
             variant="text"
             customHeight="32px"
             customWidth="96px"
@@ -77,7 +77,7 @@ function LanguageModal({ open, onClose }) {
             onClick={onClose}
           />
           <PrimaryButton
-            title="Update"
+            title={t("updateButton")}
             customHeight="32px"
             customWidth="96px"
             borderRadius="16px"

@@ -1,9 +1,16 @@
+.tabsContainer {
+  gap: 12px;
+  margin-top: 8px;
+  align-items: flex-start;
+  position: fixed;
+  overflow: hidden;
+}
 .tabs {
   flex-wrap: nowrap;
   position: static;
   overflow-y: auto;
-  background-color: #fff;
-  border: 0.5px solid #d6d6d6;
+  /* background-color: #fff; */
+  /* border: 0.5px solid #d6d6d6; */
   border-radius: 20px;
   padding: 8px 16px;
   gap: 8px;
@@ -15,7 +22,7 @@
   padding: 4px 12px;
   border-radius: 28px;
   gap: 4px;
-  border: 1px solid #d6d6d6;
+  /* border: 1px solid #d6d6d6; */
   flex-grow: 1;
   justify-content: center;
 }
