@@ -72,7 +72,6 @@ const WeatherCard = ({ fetchWeather = () => {} }) => {
           {renderWeatherIcon(location?.weather?.[0].main?.toLowerCase())}
           {location?.weather?.[0].main}
         </p>
-        <br />
       </div>
 
       <div className="flex">

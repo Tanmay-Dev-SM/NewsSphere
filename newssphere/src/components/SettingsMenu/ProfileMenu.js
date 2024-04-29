@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, MenuItem, IconButton, } from "@mui/material";
+import { Menu, MenuItem, IconButton } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 
@@ -13,6 +13,7 @@ const menuOptions = [
     label: "Logout",
   },
 ];
+const loginMenuOptions = [{ value: 0, label: "Login" }];
 const ProfileMenu = () => {
   const [anchorSettings, setAnchorSettings] = useState(null);
   const [open, setOpen] = useState(false);
@@ -59,7 +60,7 @@ const ProfileMenu = () => {
       </IconButton>
 
       <Menu anchorEl={anchorSettings} open={open} onClose={handleClose}>
-        {menuOptions?.map((option) => (
+        {loginMenuOptions?.map((option) => (
           <MenuItem
             sx={{ fontSize: "13px" }}
             onClick={() => {

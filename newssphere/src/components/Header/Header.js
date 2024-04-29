@@ -22,7 +22,6 @@ import { LogoPNG } from "src/constants/customIcons";
 import SearchOptions from "./SearchOptions";
 import SettingsMenu from "../SettingsMenu/SettingsMenu";
 import ProfileMenu from "../SettingsMenu/ProfileMenu";
-import TabBar from "../TabBar/TabBar";
 import {
   resetSearchStore,
   updateSearchStore,
@@ -74,24 +73,43 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   flexWrap: "nowrap",
 }));
 
-export default function Header({
-  searchOptions = {},
-  setSearchOptions = () => {},
-}) {
+const defaultSearchOptions = {
+  query: null,
+  exact_phrase: "",
+  has_words: "",
+  exclude_words: "",
+  website: "",
+  date: 0,
+  source_lang: "en",
+  dest_lang: "en",
+};
+
+export default function Header({ searchOptions = {} }) {
   const dispatch = useDispatch();
-  const search = useSelector((state) => state.search);
   const navigate = useNavigate();
   const menuId = "primary-search-account-menu";
   const mobileMenuId = "primary-search-account-menu-mobile";
 
   const [anchorElForPopper, setAchorElForPopper] = useState(false);
+  const [filters, setFilters] = useState({ ...searchOptions });
 
   function handlePopperToggle(event) {
     setAchorElForPopper(!anchorElForPopper);
   }
   function clearSearchOptions() {
     try {
-      setSearchOptions({});
+      dispatch(
+        updateSearchStore({ ...searchOptions, ...defaultSearchOptions })
+      );
+      setFilters({ ...defaultSearchOptions });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  function updateSearchOptions() {
+    try {
+      dispatch(updateSearchStore({ ...filters }));
+      // setSearchOptions({ ...filters });
     } catch (error) {
       console.log(error.message);
     }
@@ -121,45 +139,47 @@ export default function Header({
               <SearchOptions
                 open={anchorElForPopper}
                 onClose={handlePopperToggle}
-                searchOptions={searchOptions}
-                setSearchOptions={setSearchOptions}
+                searchOptions={filters}
+                setSearchOptions={setFilters}
                 clearSearchOptions={clearSearchOptions}
+                updateSearchOptions={updateSearchOptions}
               />
               <StyledTextField
-                // label="Search"
                 placeholder="Search for topics, location and sources"
                 variant="outlined"
-                value={search.query ?? ""}
+                value={filters.query ?? ""}
                 onChange={(ev) => {
-                  dispatch(
-                    updateSearchStore({ ...search, query: ev.target.value })
-                  );
+                  // dispatch(
+                  //   updateSearchStore({ ...search, query: ev.target.value })
+                  // );
+                  setFilters({ ...filters, query: ev.target.value });
+                }}
+                onKeyDown={(ev) => {
+                  if (ev.key == "Enter") {
+                    ev.preventDefault();
+                    updateSearchOptions();
+                  }
                 }}
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
                   startAdornment: (
                     <SearchIcon fontSize="small" sx={{ zIndex: 1 }} />
                   ),
-                  endAdornment: (
-                    <IconButton
-                      sx={{
-                        p: "0",
-                        transform: anchorElForPopper ? "rotate(180deg)" : "",
-                        transition: "ease 0.5s",
-                      }}
-                      disableFocusRipple={true}
-                      disableTouchRipple={true}
-                      disableRipple={true}
-                      onClick={handlePopperToggle}
-                    >
-                      <ArrowDropDown fontSize="small" sx={{ zIndex: 1 }} />
-                    </IconButton>
-                  ),
-                }}
-                onKeyDown={(ev) => {
-                  if (ev.key == "Enter") {
-                    ev.preventDefault();
-                  }
+                  // endAdornment: (
+                  //   <IconButton
+                  //     sx={{
+                  //       p: "0",
+                  //       transform: anchorElForPopper ? "rotate(180deg)" : "",
+                  //       transition: "ease 0.5s",
+                  //     }}
+                  //     disableFocusRipple={true}
+                  //     disableTouchRipple={true}
+                  //     disableRipple={true}
+                  //     onClick={handlePopperToggle}
+                  //   >
+                  //     <ArrowDropDown fontSize="small" sx={{ zIndex: 1 }} />
+                  //   </IconButton>
+                  // ),
                 }}
               />
             </Grid>

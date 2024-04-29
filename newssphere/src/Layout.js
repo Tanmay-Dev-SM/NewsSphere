@@ -1,4 +1,5 @@
 import React from "react";
+import { UseSelector, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 
 // OUR COMPONENTS
@@ -11,19 +12,17 @@ const defaultSearchOptions = {
   exclude_words: "",
   website: "",
   date: 0,
+  source_lang: "en",
+  dest_lang: "en",
 };
 
 export default function Layout() {
-  const [searchOptions, setSearchOptions] = React.useState({
-    ...defaultSearchOptions,
-  });
+  const [searchOptions, setSearchOptions] = React.useState({});
+  const search = useSelector((state) => state.search);
   return (
     <>
-      <Header
-        searchOptions={searchOptions}
-        setSearchOptions={setSearchOptions}
-      />
-      <Outlet context={[searchOptions, setSearchOptions]} />
+      <Header searchOptions={search} setSearchOptions={setSearchOptions} />
+      <Outlet />
     </>
   );
 }

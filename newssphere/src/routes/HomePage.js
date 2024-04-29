@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Grid, Card, CardContent, CardMedia } from "@mui/material";
+import {
+  Grid,
+  Card,
+  CardContent,
+  Divider,
+  Backdrop,
+  CircularProgress,
+} from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 
 import "./styles.css";
@@ -10,7 +17,6 @@ import {
   resetLocationStore,
 } from "src/reducers/location/location";
 
-import TabBar from "src/components/TabBar/TabBar";
 import TabBarNew from "src/components/TabBar/TabBarNew";
 import WeatherCard from "src/components/WeatherCard/Card";
 import { DetailedNews } from "src/routes";
@@ -278,7 +284,8 @@ const dummyData = {
 function HomePage() {
   const dispatch = useDispatch();
   const [newsData, setNewsData] = useState({ ...dummyData });
-  const [searchOptions, setSearchOptions] = useOutletContext();
+  const searchOptions = useSelector((state) => state.search);
+  // const [searchOptions, setSearchOptions] = useOutletContext();
   const [loading, setLoading] = useState(true);
   const [coords, setCoords] = useState({});
 
@@ -292,12 +299,19 @@ function HomePage() {
   const handleItemClick = (news) => () => {
     navigate("/article", { state: { news } });
   };
+  console.log("HomePage", searchOptions);
 
   useEffect(() => {
     // fetchNewsArticles(searchOptions?.query ?? null);
-    setLoading(false);
+    handleLoadingClose();
     getGeolocation();
+    
   }, []);
+
+  useEffect(() => {
+    fetchNewsArticles(searchOptions);
+  }, [searchOptions?.query]);
+
   useEffect(() => {
     fetchWeather();
   }, [coords]);
@@ -309,15 +323,19 @@ function HomePage() {
     setLoading(false);
   }
 
-  async function fetchNewsArticles(query = null) {
+  async function fetchNewsArticles(options) {
     try {
-      const api_key = "pub_4071506419b6383ba3eec00410c45014e4652";
-      const endpoint = "https://newsdata.io/api/1/news";
-      const response = await axios.get(
-        `${endpoint}?apikey=${api_key}&q=${query}&language=en`
-      );
-      setNewsData(response?.data);
-      handleLoadingClose();
+      if (options?.query) {
+        const api_key = "pub_4071506419b6383ba3eec00410c45014e4652";
+        const endpoint = "https://newsdata.io/api/1/news";
+        const response = await axios.get(
+          `${endpoint}?apikey=${api_key}&q=${
+            options?.query || null
+          }&language=en`
+        );
+        setNewsData(response?.data);
+        handleLoadingClose();
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
       handleLoadingClose();
@@ -354,10 +372,15 @@ function HomePage() {
   return (
     <div>
       {loading ? (
-        <p>Loading...</p>
+        <Backdrop
+          sx={{ color: "#000", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}
+          // onClick={handleLoadingClose}
+        >
+          <CircularProgress />
+        </Backdrop>
       ) : (
         <Grid container className="root">
-          {/* <TabBar selectedTab={selectedTab} handleChange={handleChange} /> */}
           <TabBarNew selectedTab={selectedTab} handleChange={handleChange} />
           <Grid container style={{ flexWrap: "nowrap" }}>
             <Grid item md={1}></Grid>
@@ -367,11 +390,12 @@ function HomePage() {
                   news.category.includes(
                     topics[selectedTab].label.toLowerCase()
                   )
-                ) // Filter news items first
-                .map((news, index) => (
+                )
+                ?.slice(0, 8) // Filter news items first
+                ?.map((news, index) => (
                   <Grid
                     item
-                    flexBasis="calc(33% - 16px)"
+                    flexBasis="calc(25% - 16px)"
                     onClick={handleItemClick(news)}
                     style={{ margin: "8px" }}
                   >
@@ -403,7 +427,7 @@ function HomePage() {
                   </Grid>
                 ))}
             </Grid>
-            <Grid item md={2}>
+            <Grid item md={2} style={{ padding: "0 8px 0 16px" }}>
               <WeatherCard fetchWeather={fetchWeather} />
             </Grid>
           </Grid>
