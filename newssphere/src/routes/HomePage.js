@@ -24,7 +24,6 @@ import { DetailedNews } from "src/routes";
 import { topics } from "src/constants/topics";
 import { useOutletContext } from "react-router-dom";
 import scrapedData from "src/scraped_data_TopStories.json";
-import { LoadingCard, LoadingPosts } from "src/components/LoadingCards/Cards";
 
 const dummyData = {
   status: "success",
